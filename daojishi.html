@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>消防页数</title>
+
+    <!--网页学习链接 https://blog.csdn.net/chu782729918/article/details/80164687 -->
+    <script type="text/javascript">
+        function ShowCountDown() {
+
+//            开始学习时间
+            var start_d = new Date(Date.parse("2019/11/14"));
+//计划结束时间
+            var end_d = new Date(Date.parse("2020/05/09"));
+
+            var now = new Date();
+
+            var leftTime = now.getTime() - start_d.getTime();
+            var leftsecond = parseInt(leftTime / 1000);
+            var day1 = Math.floor(leftsecond / (60 * 60 * 24));
+
+
+            document.getElementById("time_start").innerHTML = start_d.getFullYear() + "年" + (start_d.getMonth() + 1) + "月" + start_d.getDate() + "日" + " 星期" + "日一二三四五六".charAt(start_d.getDay());
+
+
+            document.getElementById("time_end").innerHTML = end_d.getFullYear() + "年" + (end_d.getMonth() + 1) + "月" + end_d.getDate() + "日" + " 星期" + "日一二三四五六".charAt(end_d.getDay());
+
+
+            document.getElementById("time_current").innerHTML = now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日" + " 星期" + "日一二三四五六".charAt(now.getDay());
+
+            document.getElementById("page_should").innerHTML = (day1 * 3 + 1) + "&ensp;&ensp;页 ~ " + (day1 + 1) * 3 + "&ensp;&ensp;页";
+
+        }
+        window.setInterval(function () {
+            ShowCountDown();
+        }, 1000);
+    </script>
+
+    <style>
+        body {
+            text-align: center
+
+        }
+
+        .div {
+            margin: 0 auto;
+            width: 600px;
+            height: 100px;
+            /*border: 1px solid #F00*/
+        }
+
+        /* css注释：为了观察效果设置宽度 边框 高度等样式 */
+    </style>
+</head>
+<body>
+
+<div class="div">
+
+    <dl>
+        <!-- 开始学习时间 -->
+        <dd>
+            <pre>开始学习时间是 ：</pre>
+            <b id="time_start"></b>
+        </dd>
+        <br/>
+        <!-- 计划结束学习时间 -->
+        <dd>
+            <pre>学习结束时间是：</pre>
+            <b id="time_end"></b>
+        </dd>
+        <br/>
+        <!-- 当前时间 -->
+        <dd>
+            <pre>当前时间是：</pre>
+            <b id="time_current"></b>
+        </dd>
+        <br/>
+        <!-- 应该页数 -->
+        <dd>
+            <pre>应该看的页数是:</pre>
+
+            <b id="page_should" style="color:red;font-size:25px;"></b>
+        </dd>
+
+    </dl>
+</div>
+
+</body>
+
+</html>
