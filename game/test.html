@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<!--音乐-->
+<audio id="myaudio" src="./music.mp3" hidden controls="controls" autoplay loop="true"/>
+
+<button hidden type="button" id="test">点我</button>
+</body>
+
+<!--<script>-->
+    <!--$(function () {-->
+        <!--var myAuto = document.getElementById('myaudio');-->
+        <!--myAuto.play();-->
+    <!--})-->
+<!--</script>-->
+
+<script>
+
+    var bgmusic = document.getElementById('myaudio');
+    bgmusic.play()
+
+    document.getElementById('test').addEventListener('click',function (ev) {
+        // alert("!23")
+        bgmusic.play()
+    })
+
+
+    setTimeout(function() {
+        // IE
+        if(document.all) {
+            document.getElementById("test").click();
+        }
+        // 其它浏览器
+        else {
+            var e = document.createEvent("MouseEvents");
+            e.initEvent("click", true, true);
+            document.getElementById("test").dispatchEvent(e);
+        }
+    },1000);
+</script>
+
+</html>
