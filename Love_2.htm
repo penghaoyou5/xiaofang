@@ -120,8 +120,13 @@
         }
         document.addEventListener(visibilityChangeEvent, onVisibilityChange);
         //---------背景音乐开关----------
+        //添加变量 因为整体变量的页面关闭没有初始化 导致刷新重播问题 强制一个变量
+        var no_play_music = true;
         function triggerBgMusic(){
-            if(!sessionStorage.bgmusic||sessionStorage.bgmusic=='play'){
+            if(no_play_music){
+                playBgMusic(true);
+                no_play_music = false;
+            }else if(!sessionStorage.bgmusic||sessionStorage.bgmusic=='play'){
                 playBgMusic(false);
             }else{
                 playBgMusic(true);
