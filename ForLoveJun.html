@@ -19,10 +19,12 @@
         // 默认ie处理方法
         try {
             var name = getFile.value
+            alert(name)
             //获取文件所在文件夹路径
             pos = name.lastIndexOf('/');//'/所在的最后位置'
             path = name.substr(0, pos)//截取路径字符串
             //运行代码
+            alert(path)
             var fso = new ActiveXObject("Scripting.FileSystemObject");
             var s = fso.GetFolder(path);
             files_list = s.files;
