@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="x-UA-Compatible" content="IE=Edge">
+
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<!--  增加点击属性 -->
+<script language="JavaScript">
+
+    function myFunction() {
+
+        var getFile = document.getElementById("getFile")
+        //获取输入文件路径
+
+        var files_list = Node;
+        var is_Ie = true;
+
+        // 默认ie处理方法 
+        try {
+            var name = getFile.value
+            //获取文件所在文件夹路径
+            pos = name.lastIndexOf('\\');//'/所在的最后位置'
+            path = name.substr(0, pos)//截取路径字符串
+            //运行代码
+            var fso = new ActiveXObject("Scripting.FileSystemObject");
+            var s = fso.GetFolder(path);
+            files_list = s.files;
+        } catch (err) {
+            //处理错误
+            try {
+                // 其它浏览器处理方法
+                files_list = getFile.files
+                is_Ie = false;
+            } catch (errinner) {
+                alert("有问题找小朋 \n" + errinner.message)
+            }
+
+        }
+
+        //列出文件夹中文件
+        var result_TABLE = document.getElementById("result_TABLE");
+        if (is_Ie) {
+            var fn = new Enumerator(files_list);
+            for (; !fn.atEnd(); fn.moveNext()) {
+
+                var item_str = String(fn.item())
+
+                //文件去除后缀名
+                pos_suffix = item_str.lastIndexOf('\.');
+
+                if (pos_suffix > 0) {
+
+                    item_str = item_str.substr(0, pos_suffix)
+                }
+
+
+                if (item_str && item_str !== ".DS_Store" && item_str !== "undefined" && item_str !== "item") {
+                    alert(item_str)
+                    alert(pos_suffix)
+
+                    item_list = item_str.split("-");
+
+                    var row = document.createElement('tr'); //创建行
+                    var idCell = document.createElement('td'); //创建第一列id  
+                    idCell.innerHTML = item_list[0]; //填充数据  
+                    row.appendChild(idCell); //加入行  ，下面类似  
+
+                    var nameCell = document.createElement('td');//创建第二列name  
+                    nameCell.innerHTML = item_list[1];
+                    row.appendChild(nameCell);
+
+                    var jobCell = document.createElement('td');//创建第三列job  
+                    jobCell.innerHTML = item_list[2];
+                    row.appendChild(jobCell);
+
+                    result_TABLE.appendChild(row);
+
+                }
+            }
+
+        } else {
+            for (var i in files_list) {
+
+                item_str = String(files_list[i].name)
+
+                //文件去除后缀名
+                pos_suffix = item_str.lastIndexOf('\.');
+
+                if (pos_suffix > 0) {
+
+                    item_str = item_str.substr(0, pos_suffix)
+                }
+
+
+                if (item_str && item_str !== ".DS_Store" && item_str !== "undefined" && item_str !== "item") {
+                    alert(item_str)
+                    alert(pos_suffix)
+
+                    item_list = item_str.split("-");
+
+                    var row = document.createElement('tr'); //创建行
+                    var idCell = document.createElement('td'); //创建第一列id  
+                    idCell.innerHTML = item_list[0]; //填充数据  
+                    row.appendChild(idCell); //加入行  ，下面类似  
+
+                    var nameCell = document.createElement('td');//创建第二列name  
+                    nameCell.innerHTML = item_list[1];
+                    row.appendChild(nameCell);
+
+                    var jobCell = document.createElement('td');//创建第三列job  
+                    jobCell.innerHTML = item_list[2];
+                    row.appendChild(jobCell);
+
+                    result_TABLE.appendChild(row);
+
+                }
+
+
+            }
+        }
+
+
+    }
+
+</script>
+
+
+<body>
+<!-- 若IE浏览器使用 选择文件夹中某一个文件 -->
+若出现选择文件 则 ctrl+A选所有文件
+<br/>
+若出现选择文件夹 则选择相应文件夹
+<br/><br/>
+
+<input id="getFile" type="file" multiple="multiple" webkitdirectory="true" onchange="myFunction()"/>
+<br/><br/>
+<button onclick="myFunction()" hidden=true>点击获取结果</button>
+<br/><br/>
+复制下边文字，可直接粘贴到excel。
+<br/><br/>
+
+<TABLE id="result_TABLE">
+
+
+</TABLE>
+
+</body>
+</html>
