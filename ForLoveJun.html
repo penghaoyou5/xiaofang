@@ -12,12 +12,16 @@
 
         var getFile = document.getElementById("getFile")
         //获取输入文件路径
-        var name = getFile.value
 
         var files_list = Node;
         var is_Ie = true;
 
+        // 默认ie处理方法
         try {
+            var name = getFile.value
+            //获取文件所在文件夹路径
+            pos = name.lastIndexOf('\\');//'/所在的最后位置'
+            path = name.substr(0, pos)//截取路径字符串
             //运行代码
             var fso = new ActiveXObject("Scripting.FileSystemObject");
             var s = fso.GetFolder(path);
@@ -25,6 +29,7 @@
         } catch (err) {
             //处理错误
             try {
+                // 其它浏览器处理方法
                 files_list = getFile.files
                 is_Ie = false;
             } catch (errinner) {
@@ -33,17 +38,10 @@
 
         }
 
-
-        //获取文件所在文件夹路径
-        pos = name.lastIndexOf('\\');//'/所在的最后位置'
-        path = name.substr(0, pos)//截取路径字符串
-
-
         //列出文件夹中文件
         var s = "";
 
         var s_txt = "";
-
 
         if (is_Ie) {
             var fn = new Enumerator(files_list);
@@ -53,7 +51,6 @@
 
                 s = s + item_str + "\n";
 
-
                 var pos_need = item_str.lastIndexOf('\\');
                 //文件全名
                 item_str = item_str.substr(pos_need + 1);
@@ -61,8 +58,7 @@
                 pos_suffix = item_str.lastIndexOf('\.');
                 item_str = item_str.substr(0, pos_suffix)
 
-
-                s_txt = s_txt + item_str.substr(pos_need + 1) + "\n";
+                s_txt = s_txt + item_str + "\n";
             }
 
         } else {
@@ -77,7 +73,7 @@
                 pos_suffix = item_str.lastIndexOf('\.');
                 item_str = item_str.substr(0, pos_suffix)
 
-                s_txt = s_txt + item_str.substr(pos_need + 1) + "\n";
+                s_txt = s_txt + item_str + "\n";
 
             }
         }
