@@ -7,45 +7,80 @@
 <script language="JavaScript">
 
 
-    function myFunction()
-    {
+    function myFunction() {
 
         var getFile = document.getElementById("getFile")
         //获取输入文件路径
         var name = getFile.value
 
+        var files_list = Node;
+        var is_Ie = true;
+
+        try {
+            //运行代码
+            var fso = new ActiveXObject("Scripting.FileSystemObject");
+            var s = fso.GetFolder(path);
+            files_list = s.files;
+        } catch (err) {
+            //处理错误
+            try {
+                files_list = getFile.files
+                is_Ie = false;
+            } catch (errinner) {
+                alert("有问题找小朋 \n" + errinner.message)
+            }
+
+        }
+
 
         //获取文件所在文件夹路径
         pos = name.lastIndexOf('\\');//'/所在的最后位置'
-        path = name.substr(0,pos)//截取路径字符串
+        path = name.substr(0, pos)//截取路径字符串
 
-
-
-        var fso=new ActiveXObject("Scripting.FileSystemObject");
-        var s=fso.GetFolder(path);
-        var fn=new Enumerator(s.files);
 
         //列出文件夹中文件
-        var s="";
+        var s = "";
 
         var s_txt = "";
-        for(;!fn.atEnd();fn.moveNext()){
-
-            var item_str = String(fn.item())
-
-            s=s+item_str+"\n";
 
 
-            var pos_need = item_str.lastIndexOf('\\');
-            //文件全名
-            item_str = item_str.substr(pos_need+1);
-            //文件去除后缀名
-            pos_suffix = item_str.lastIndexOf('\.');
-            item_str = item_str.substr(0,pos_suffix)
+        if (is_Ie) {
+            var fn = new Enumerator(files_list);
+            for (; !fn.atEnd(); fn.moveNext()) {
+
+                var item_str = String(fn.item())
+
+                s = s + item_str + "\n";
 
 
-            s_txt = s_txt + item_str.substr(pos_need+1) +"\n";
+                var pos_need = item_str.lastIndexOf('\\');
+                //文件全名
+                item_str = item_str.substr(pos_need + 1);
+                //文件去除后缀名
+                pos_suffix = item_str.lastIndexOf('\.');
+                item_str = item_str.substr(0, pos_suffix)
+
+
+                s_txt = s_txt + item_str.substr(pos_need + 1) + "\n";
+            }
+
+        } else {
+            for (var i in files_list) {
+                // alert(files_list[i].name)
+
+                item_str = String(files_list[i].name)
+
+                s = s + item_str + "\n";
+
+                //文件去除后缀名
+                pos_suffix = item_str.lastIndexOf('\.');
+                item_str = item_str.substr(0, pos_suffix)
+
+                s_txt = s_txt + item_str.substr(pos_need + 1) + "\n";
+
+            }
         }
+
 
         // alert(s);
 
