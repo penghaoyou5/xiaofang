@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
+
+<!--  增加点击属性 -->
 <script language="JavaScript">
 
-<!-- 增加优化 直接增加监听属性 可以不点击得到结果 -->
     function myFunction() {
 
         var getFile = document.getElementById("getFile")
@@ -89,14 +90,18 @@
     }
 
 </script>
+
+
+
+
 <body>
 若IE浏览器使用 选择文件夹中某一个文件 <br/>
 若其他浏览器 选择文件夹
 <br/><br/>
 
-<input id="getFile" type="file" webkitdirectory="true"/>
+<input id="getFile" type="file" webkitdirectory="true"  onchange="myFunction()"/>
 <br/><br/>
-<button onclick="myFunction()">点击获取结果</button>
+<button onclick="myFunction()" hidden=true >点击获取结果</button>
 <br/><br/>
 复制下边文字，可直接粘贴到excel。
 <br/><br/>
