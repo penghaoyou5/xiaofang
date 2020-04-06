@@ -20,7 +20,7 @@
         try {
             var name = getFile.value
             //获取文件所在文件夹路径
-            pos = name.lastIndexOf('\\');//'/所在的最后位置'
+            pos = name.lastIndexOf('/');//'/所在的最后位置'
             path = name.substr(0, pos)//截取路径字符串
             //运行代码
             var fso = new ActiveXObject("Scripting.FileSystemObject");
@@ -91,7 +91,7 @@
 
 
 <body>
-若IE浏览器使用 选择文件夹中某一个文件 <br/>
+若IE浏览器使用 选择文件夹中某一个文件1 <br/>
 若其他浏览器 选择文件夹
 <br/><br/>
 
